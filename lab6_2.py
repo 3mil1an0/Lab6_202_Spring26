@@ -1,18 +1,23 @@
 from __future__ import annotations
+from collections import deque
 
 from dataclasses import dataclass
 from typing import Optional
 
 
-@dataclass(frozen=True)
+@dataclass(frozen= True)
 class Node:
     val: int
     left: Optional["Node"] = None
     right: Optional["Node"] = None
 
 
+
+
 def preorder(tree: Optional[Node]) -> list[int]:
     if tree is None:
+
+
         return []
     return [tree.val] + preorder(tree.left) + preorder(tree.right)
 
@@ -20,15 +25,33 @@ def preorder(tree: Optional[Node]) -> list[int]:
 def inorder(tree: Optional[Node]) -> list[int]:
     if tree is None:
         return []
-    return inorder(tree.left) + [tree.val] + inorder(tree.right)
+    
 
+    return inorder(tree.left)  + [tree.val]  + inorder(tree.right)
 
 def postorder(tree: Optional[Node]) -> list[int]:
+
     if tree is None:
         return []
+    
     return postorder(tree.left) + postorder(tree.right) + [tree.val]
 
 
 def bfs(tree: Optional[Node]) -> list[int]:
+    if tree is None:
+        return []
+        
+    result = []
+    queue = deque([tree])
+    
+    while len(queue) > 0:
+        current = queue.popleft()
+        result.append(current.val)
 
-    pass
+        if current.left is not None:
+            queue.append(current.left)
+        if current.right is not None:
+            queue.append(current.right)
+
+    return result
+        

@@ -22,6 +22,7 @@ def search(tree: Optional[Node], x: int) -> bool:
     if x < tree.val:
         return search(tree.left, x)
     return search(tree.right, x)
+    
 
 
 def insert(tree: Optional[Node], x: int) -> Optional[Node]:
